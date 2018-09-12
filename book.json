@@ -1,14 +1,17 @@
 {
 	"gitbook": "3.2.3",
 	"title": "我的数据库管理手册电子书",
-	"description": "总结我的数据库工作生涯中常用的经验与遇到的问题",
+	"description": "总结和分享我的数据库工作生涯中常用的经验与遇到的问题",
 	"author": "Mars丶小石头 <bjddd192@163.com>",
 	"language": "zh-hans",
 	"isbn": "",
 	"plugins": [
 		"highlight",
+		"-search",
+		"-sharing",
 		"fontsettings",
 		"livereload",
+		"-lunr",
 		"search-pro-kui",
 		"-sharing-plus",
 		"-github",
@@ -18,7 +21,8 @@
 		"prism",
 		"-disqus",
 		"tbfed-pagefooter",
-		"favicon"
+		"favicon",
+		"-rss"
 	],
 	"pluginsConfig": {
 		"sharing": {
@@ -111,6 +115,18 @@
 		"favicon": {
 			"shortcut": "favicon.ico",
 			"bookmark": "favicon.ico"
+		},
+		"rss": {
+			"title": "我的数据库管理手册电子书",
+			"description": "总结和分享我的数据库工作生涯中常用的经验与遇到的问题",
+			"author": "Mars丶小石头 <bjddd192@163.com>",
+			"feed_url": "http://gitbook.bjddd192.com/rss",
+			"site_url": "http://gitbook.bjddd912.com/",
+			"managingEditor": "bjddd192@163.com",
+			"webMaster": "bjddd192@163.com",
+			"categories": [
+				"gitbook"
+			]
 		}
 	}
 }
