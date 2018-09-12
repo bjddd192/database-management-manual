@@ -55,7 +55,7 @@ Starting Redis server...
 Installation successful!
 ```
 
-此时，安装完成，注意一下默认的配置即可。
+此时，安装完成，注意一下默认的配置即可。
 
 Redis 服务默认还没有启动，可以启动一下：
 
@@ -86,9 +86,9 @@ OK
 
 进程、操作都 OK，说明安装成功。
 
-## 开启远程访问
+## 开启远程访问
 
-安装完成后，使用客户端工具，如：`redis-desktop-manager` 来进行远程连接，会发现连不上。
+安装完成后，使用客户端工具，如：`redis-desktop-manager` 来进行远程连接，会发现连不上。
 
 ## 参考资料
 
@@ -96,6 +96,6 @@ OK
 
 [CentOS7 下安装 Redis](https://www.cnblogs.com/zuidongfeng/p/8032505.html)
 
-[CentOS7 下安装 Redis-4.0.6](https://blog.csdn.net/weixin_37939964/article/details/78903034)
+[CentOS7 下安装 Redis-4.0.6](https://blog.csdn.net/weixin_37939964/article/details/78903034)
 
 
