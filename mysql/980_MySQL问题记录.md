@@ -70,7 +70,7 @@ alter table db_cost_test.rpt_zg_dtl modify COLUMN line_id bigint(20) NOT NULL AU
 
 发现加不上，因为这个表 line_id 有很多重复的数据。
 
-干脆先不要同步这个表了：
+干脆先不要同步这个表了，需要在配置文件中指定：
 
 ```sh
 # 关闭数据库服务器
