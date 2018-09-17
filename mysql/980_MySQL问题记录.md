@@ -8,9 +8,9 @@
 
 1. slave 延时 Seconds_Behind_Master 不断增加
 2. 复制位点无法移动，Relay_Log_File 停留在 relay-bin.011436，Relay_Log_Pos 停留在 252587725
-3. 复制状态中没有发现 error 信息
+3. 复制状态中没有发现 error 信息，当前状态信息显示：`Reading event from the relay log`
 4. 重启 salve 服务器，问题依旧
-5. 本想重启 master 服务器看看，但感觉会有风险，没有这么做
+5. 本想重启 master 服务器看看，但感觉会有风险(远程中，屋外正遭遇超强台风——山竹)，因此没有这么做
 6. 发现 slave CPU 一直处于高占比状态
 
 查了一下资料，怀疑是有大表没有索引，但是发生了大批量的删除操作引起 slave hang 住了。
