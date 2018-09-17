@@ -91,7 +91,7 @@ start slave;
 
 等待一段时间，直到 Seconds_Behind_Master 变成了0，说明主从复制恢复正常了。
 
-然后再来处理这个有问题的表，再 master 调整表表结果，并设置主键：
+然后再来处理这个有问题的表，在 master 调整表结构，并设置主键：
 
 ```sql
 alter table db_cost_test.rpt_zg_dtl DROP column line_id;
@@ -100,6 +100,6 @@ alter table db_cost_test.rpt_zg_dtl add COLUMN line_id bigint(20) NOT NULL AUTO_
 
 再将这个表导入到 slave 库，这时，master 库与 slave 库又保持一致了。
 
-最后，将配置文件临时添加的的 replicate-ignore-table=db_cost_test.rpt_zg_dtl 规则去掉，然后再重启一下 slave 并重新开启同步，一切又步入正轨了。
+最后，将配置文件临时添加的 replicate-ignore-table=db_cost_test.rpt_zg_dtl 规则去掉，然后再重启一下 slave 并重新开启同步，一切又步入正轨了。
 
-
+至此，问题解决。
