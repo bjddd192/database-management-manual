@@ -2,6 +2,9 @@
 
 * [我的数据库管理手册](README.md)
     * Mysql
+        * [常用函数]
+        * [主从复制]
+        * [MySQL问题记录](mysql/980_MySQL问题记录.md)
     * Oracle
     * DB2
     * Redis
