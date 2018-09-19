@@ -4,6 +4,8 @@
     * Mysql
         * [常用函数]
         * [主从复制]
+        * [MySQL运维记录]
+            * [千万级大表分区表转化](mysql/MySQL运维记录/850_千万级大表转化为按月分区表.md)
         * [MySQL问题记录](mysql/980_MySQL问题记录.md)
     * Oracle
     * DB2
