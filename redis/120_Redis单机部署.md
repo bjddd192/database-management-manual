@@ -113,7 +113,7 @@ OK
 # 关闭 Redis 服务
 $ /etc/init.d/redis_6379 stop
 # 修改绑定的主机 IP
-$ sed -i 's/bind 127.0.0.1/bind 172.20.32.125/g' /etc/redis/6379.conf
+$ sed -i 's/bind 127.0.0.1/bind 127.0.0.1 172.20.32.125/g' /etc/redis/6379.conf
 # 关闭保护模式
 $ sed -i 's/protected-mode yes/protected-mode no/g' /etc/redis/6379.conf
 $ /etc/init.d/redis_6379 start

@@ -79,7 +79,7 @@ Redis 的配置文件还是挺长的，因此有必要整理一份常用的中�
 # 如果你确定你希望所有网络接口都要监听
 # 只需要注释下面的行
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-bind 172.20.32.125
+bind 127.0.0.1 172.20.32.125
 
 # 保护模式是一层安全防护，以免将 Redis 实例暴露在互联网上时，被非法访问。
 #
@@ -955,7 +955,7 @@ aof-rewrite-incremental-fsync yes
 # IF YOU ARE SURE YOU WANT YOUR INSTANCE TO LISTEN TO ALL THE INTERFACES
 # JUST COMMENT THE FOLLOWING LINE.
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-bind 172.20.32.125
+bind 127.0.0.1 172.20.32.125
 
 # Protected mode is a layer of security protection, in order to avoid that
 # Redis instances left open on the internet are accessed and exploited.
