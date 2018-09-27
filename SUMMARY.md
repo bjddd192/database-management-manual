@@ -4,6 +4,8 @@
     * Mysql
         * [常用函数]
         * [主从复制]
+        * [实用技巧]
+            * [数据行列转换](mysql/实用技巧/710_数据行列转换.md)
         * MySQL运维记录
             * [千万级大表分区表转化](mysql/MySQL运维记录/850_千万级大表转化为按月分区表.md)
         * [MySQL问题记录](mysql/980_MySQL问题记录.md)
@@ -16,6 +18,12 @@
         * [我的常用配置文件](redis/131_我的常用配置文件.md)
         * [Redis常用命令](redis/140_Redis常用命令.md)
         * [Redis数据类型](redis/150_Redis数据类型.md)
+        * [Redis管理](redis/160_Redis管理.md)
+        * [Redis持久化](redis/170_Redis持久化.md)
+        * [Redis持久化](redis/175_Redis备份与恢复.md)
+        * [Redis主从复制](redis/180_Redis主从复制.md)
+        * [Redis集群高可用](redis/190_Redis集群高可用.md)
+        * [缓存应用场景](redis/200_缓存应用场景.md)
     * MongoDB
     * 知识收藏
         * [经典词句](knowledge/110_经典词句.md)

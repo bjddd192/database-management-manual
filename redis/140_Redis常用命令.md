@@ -180,6 +180,45 @@ redis-cli -p 6379 -a 123456
 127.0.0.1:6379> keys *
 1) "city"
 2) "age"
+
+# 模糊查询 keys
+# 考虑到是单线程，在生产环境不建议使用，如果键多可能会阻塞，如果键少，才考虑使用
+127.0.0.1:6379> keys c*y
+1) "city"
+2) "country"
+127.0.0.1:6379> keys ci*y
+1) "city"
+127.0.0.1:6379> keys n?m*
+1) "name"
+127.0.0.1:6379> keys [c,n]*
+1) "city"
+2) "country"
+3) "name"
+
+# 渐进式遍历查询
+# 渐进式遍历可有效地解决 keys 命令可能产生的阻塞问题
+# 除 scan 字符串外，还有以下：
+# scan 命令用于迭代当前数据库中的数据库键。
+# sscan 命令用于迭代集合键中的元素。
+# hscan 命令用于迭代哈希键中的键值对。
+# zscan 命令用于迭代有序集合中的元素（包括元素成员和元素分值）。
+# 用法和 scan 一样
+127.0.0.1:6379> select 1
+127.0.0.1:6379[1]> mset  a a b b c c d d e e f f g g h h i i j j k k l l m m n n o o p p q q r r s s t t u u v v w w x x y y z z
+127.0.0.1:6379[1]> scan 0 match k*  count 50
+1) "0"
+2) 1) "k"
+
+# 清空当前数据库的键值对，慎用！！！
+127.0.0.1:6379[1]> flushdb
+OK
+127.0.0.1:6379[1]> keys *
+(empty list or set)
+127.0.0.1:6379[1]> dbsize
+(integer) 0
+
+# 清空所有库的键值对，慎用！！！
+# 127.0.0.1:6379> flushall
 ```
  
 

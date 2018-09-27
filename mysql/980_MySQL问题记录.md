@@ -95,7 +95,7 @@ start slave;
 
 ```sql
 alter table db_cost_test.rpt_zg_dtl DROP column line_id;
-alter table db_cost_test.rpt_zg_dtl add COLUMN line_id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY key COMMENT '行id(主键)';
+alter table db_cost_test.rpt_zg_dtl add COLUMN line_id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY key COMMENT '行id(主键)' first;
 ```
 
 再将这个表导入到 slave 库，这时，master 库与 slave 库又保持一致了。
