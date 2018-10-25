@@ -25,6 +25,7 @@
         * [Redis集群高可用](redis/190_Redis集群高可用.md)
         * [缓存应用场景](redis/200_缓存应用场景.md)
     * MongoDB
+        * [MongoDB记录](mongodb/MongoDB记录.md)
     * 知识收藏
         * [经典词句](knowledge/110_经典词句.md)
         * [励志思想](knowledge/120_励志思想.md)
