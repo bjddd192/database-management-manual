@@ -27,6 +27,7 @@
         * [Redis主从复制](redis/180_Redis主从复制.md)
         * [Redis集群高可用](redis/190_Redis集群高可用.md)
         * [缓存应用场景](redis/200_缓存应用场景.md)
+        * [Redis容器化](redis/210_Redis容器化.md)
     * MongoDB
         * [MongoDB记录](mongodb/MongoDB记录.md)
     * 知识收藏
