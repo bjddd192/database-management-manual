@@ -2,6 +2,8 @@
 
 [Sentinel](http://redisdoc.com/topic/sentinel.html)
 
+[深入浅出Redis-redis哨兵集群](https://www.cnblogs.com/jaycekon/p/6237562.html)
+
 [用ansible-playbook安装redis的sentinel高可用集群](http://bbotte.com/server-config/install-sentinel-redis-high-availability-cluster-with-ansible-playbook/)
 
 [搭建一个简单的redis-sentinel(哨兵机制)集群](https://blog.csdn.net/qq_37853817/article/details/78961462)

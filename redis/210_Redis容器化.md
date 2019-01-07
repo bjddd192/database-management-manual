@@ -4,6 +4,7 @@ redis.conf 是 Redis 的核心配置文件，默认 docker 运行的 redis 是�
 
 ```sh
 wget http://download.redis.io/redis-stable/redis.conf
+wget http://download.redis.io/redis-stable/sentinel.conf
 ```
 
 ## 检视 Redis 容器
@@ -88,12 +89,19 @@ docker exec -it redis-slave redis-cli
 
 ### 指定 redis.conf
 
+推荐模式：为了让 redis-sentinel 可以发现 slave，要确保 redis 服务端口和容器映射端口一致，这里使用 host 网络模式。
+
+当使用了 sentinel 时，由于一个 master 可能会变成一个 slave，一个 slave 也可能会变成 master，所以需要在 master 和 slave 的配置文件中同时都要设置 requirepass、masterauth 两个配置项，才能多次切换，否则就有可能只能切换一次。
+
 ```sh
 tee /data/redis/redis-master.conf <<-'EOF'
+port 6300
 requirepass 123456
+masterauth 123456
 EOF
 
 tee /data/redis/redis-slave.conf <<-'EOF'
+port 6301
 requirepass 123456
 slaveof 10.240.116.46 6300
 masterauth 123456
@@ -101,37 +109,39 @@ EOF
 
 docker stop redis-master && docker rm redis-master
 
-docker run -d --name redis-master -p 6300:6379 --restart always \
+docker run -d --name redis-master --net=host --restart always \
   -v /data/redis/redis-master.conf:/etc/redis.conf \
   redis:4.0.12 \
   redis-server /etc/redis.conf
 
-docker exec -it redis-master redis-cli -a 123456
+docker exec -it redis-master redis-cli -a 123456 -p 6300
 
-127.0.0.1:6379> info Replication
+127.0.0.1:6300> info Replication
 
 docker stop redis-slave && docker rm redis-slave
 
-docker run -d --name redis-slave -p 6301:6379 --restart always \
+docker run -d --name redis-slave --net=host --restart always \
   -v /data/redis/redis-slave.conf:/etc/redis.conf \
   redis:4.0.12 \
   redis-server /etc/redis.conf
 
-docker exec -it redis-slave redis-cli -a 123456
+docker exec -it redis-slave redis-cli -a 123456 -p 6301
 
-127.0.0.1:6379> info Replication
+127.0.0.1:6301> info Replication
 ```
 
 ## 哨兵模式
 
 **哨兵节点至少配置 2 个以上。SENTINEL_QUORUM 的数量需要根据哨兵节点的数量而定，一般为哨兵节点数量减 1。**
 
+**在生产环境下建议 sentinel 节点的数量能在 3 个以上，并且最好不要在同一台机器上(使用同一网卡)。 所以一般正式环境上的操作,是采用 docker 单个服务运行。**
+
 ```sh
 tee /data/redis/redis-sentinel.conf <<-'EOF'
 # 当前Sentinel服务运行的端口
 port 26379
 
-# Sentinel去监视一个名为mymaster的主redis实例，这个主实例的IP地址为redis-master，端口号为6379，
+# Sentinel去监视一个名为mymaster的主redis实例，这个主实例的IP地址为 10.240.116.46，端口号为 6300，
 # 而将这个主实例判断为失效至少需要2个Sentinel进程的同意，只要同意Sentinel的数量不达标，自动failover就不会执行
 sentinel monitor mymaster 10.240.116.46 6300 2
 
@@ -152,9 +162,9 @@ sentinel failover-timeout mymaster 180000
 sentinel auth-pass mymaster 123456
 EOF
 
-cp /data/redis/redis-sentinel.conf /data/redis/redis-sentinel-01.conf
-cp /data/redis/redis-sentinel.conf /data/redis/redis-sentinel-02.conf
-cp /data/redis/redis-sentinel.conf /data/redis/redis-sentinel-03.conf
+\cp -f /data/redis/redis-sentinel.conf /data/redis/redis-sentinel-01.conf
+\cp -f /data/redis/redis-sentinel.conf /data/redis/redis-sentinel-02.conf
+\cp -f /data/redis/redis-sentinel.conf /data/redis/redis-sentinel-03.conf
 
 docker stop redis-sentinel-01 && docker rm redis-sentinel-01
 docker stop redis-sentinel-02 && docker rm redis-sentinel-02
@@ -175,12 +185,30 @@ docker run -d --name redis-sentinel-03 --user root --restart always \
   redis:4.0.12 \
   redis-server /etc/redis-sentinel.conf --sentinel
 
-docker exec -it redis-master redis-cli -a 123456
+docker exec -it redis-master redis-cli -a 123456 -p 6300
 
 127.0.0.1:6379> info Replication
+127.0.0.1:6379> set age 18
+
+docker stop redis-master
+
+docker exec -it redis-slave redis-cli -a 123456 -p 6301
+
+127.0.0.1:6379> info Replication
+127.0.0.1:6379> set age 18
+
+# 等待 30 秒后，sentinel 节点判断 master 节点客观下线，slave 节点被选举为主节点。
+
+docker start redis-master
 ```
 
 ## 参考资料
+
+[基于Docker的Redis高可用集群搭建（redis-sentinel）](https://cloud.tencent.com/developer/article/1343834)
+
+[使用 Docker Compose 本地部署基于 Sentinel 的高可用 Redis 集群](https://juejin.im/post/5a9bce1a518825557f005e92)
+
+[阿里云使用Docker Compose部署基于Sentinel的高可用Redis集群](https://yq.aliyun.com/articles/57953)
 
 [bitnami-docker-redis](https://hub.docker.com/r/bitnami/redis)
 
