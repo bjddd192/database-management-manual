@@ -202,6 +202,97 @@ docker exec -it redis-slave redis-cli -a 123456 -p 6301
 docker start redis-master
 ```
 
+## 实战哨兵模式
+
+三台机器三哨兵，一主两从结构。
+
+```sh
+docker stop redis-node-19 && docker rm redis-node-19 
+
+docker run -d --name redis-node-19 --net=host --restart always \
+  -v /data/docker_volumn/redis/data:/data \
+  redis:4.0.12 \
+  redis-server \
+  --requirepass go2Redis \
+  --masterauth go2Redis \
+  --maxmemory 1G \
+  --maxmemory-policy volatile-ttl \
+  --save ""
+
+docker stop redis-node-27 && docker rm redis-node-27 
+
+docker run -d --name redis-node-27 --net=host --restart always \
+  -v /data/docker_volumn/redis/data:/data \
+  redis:4.0.12 \
+  redis-server \
+  --requirepass go2Redis \
+  --masterauth go2Redis \
+  --slaveof 10.0.43.19 6379 \
+  --maxmemory 1G \
+  --maxmemory-policy volatile-ttl \
+  --save ""
+	
+docker stop redis-node-30 && docker rm redis-node-30 
+
+docker run -d --name redis-node-30 --net=host --restart always \
+  -v /data/docker_volumn/redis/data:/data \
+  redis:4.0.12 \
+  redis-server \
+  --requirepass go2Redis \
+  --masterauth go2Redis \
+  --slaveof 10.0.43.19 6379 \
+  --maxmemory 1G \
+  --maxmemory-policy volatile-ttl \
+  --save ""
+
+docker stop redis-sentinel-19 && docker rm redis-sentinel-19
+
+docker run -d --name redis-sentinel-19 --net=host --restart always \
+  -e SENTINEL_PORT=26379 \
+  -e SENTINEL_MASTER_NAME=redis-master-test \
+  -e SENTINEL_REDIS_IP=10.0.43.19 \
+  -e SENTINEL_REDIS_PORT=6379 \
+  -e SENTINEL_REDIS_PWD=go2Redis \
+  -e SENTINEL_QUORUM=2 \
+  -e SENTINEL_DOWN_AFTER=10000 \
+  bjddd192/redis-sentinel:4.0.12-alpine
+
+docker stop redis-sentinel-27 && docker rm redis-sentinel-27
+
+docker run -d --name redis-sentinel-27 --net=host --restart always \
+  -e SENTINEL_PORT=26379 \
+  -e SENTINEL_MASTER_NAME=redis-master-test \
+  -e SENTINEL_REDIS_IP=10.0.43.19 \
+  -e SENTINEL_REDIS_PORT=6379 \
+  -e SENTINEL_REDIS_PWD=go2Redis \
+  -e SENTINEL_QUORUM=2 \
+  -e SENTINEL_DOWN_AFTER=10000 \
+  bjddd192/redis-sentinel:4.0.12-alpine
+  
+docker stop redis-sentinel-30 && docker rm redis-sentinel-30
+
+docker run -d --name redis-sentinel-30 --net=host --restart always \
+  -e SENTINEL_PORT=26379 \
+  -e SENTINEL_MASTER_NAME=redis-master-test \
+  -e SENTINEL_REDIS_IP=10.0.43.19 \
+  -e SENTINEL_REDIS_PORT=6379 \
+  -e SENTINEL_REDIS_PWD=go2Redis \
+  -e SENTINEL_QUORUM=2 \
+  -e SENTINEL_DOWN_AFTER=10000 \
+  bjddd192/redis-sentinel:4.0.12-alpine
+  
+# 手工校验、测试  
+# docker exec -it redis-sentinel-19 redis-cli -a go2Redis -p 6379
+# info Replication
+# docker exec -it redis-sentinel-19 redis-cli -p 26379 info Sentinel
+# docker pause redis-node-19
+# sleep 20
+# docker exec -it redis-sentinel-19 redis-cli -p 26379 info Sentinel
+# docker unpause redis-node-19
+# sleep 20
+# docker exec -it redis-sentinel-19 redis-cli -p 26379 info Sentinel
+```
+
 ## 参考资料
 
 [基于Docker的Redis高可用集群搭建（redis-sentinel）](https://cloud.tencent.com/developer/article/1343834)
@@ -217,5 +308,3 @@ docker start redis-master
 [深入浅出Docker技术- Redis sentinel 集群的搭建](http://www.dczou.com/viemall/837.html)
 
 [viemall-redis-sentinel](https://gitee.com/gz-tony/viemall-dubbo/tree/master/viemall-docekr/compose/redis-sentinel)
-
-https://123.belle.net.cn/cas/login?service=https%3A%2F%2Fpetrel-scm01.belle.net.cn%2Fpetrel%2Fsso%2Flogin%3FsystemCode%3DPetrel
