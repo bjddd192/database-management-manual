@@ -30,6 +30,8 @@
         * [Redis容器化](redis/210_Redis容器化.md)
     * MongoDB
         * [MongoDB记录](mongodb/MongoDB记录.md)
+    * 数据库工具
+        * [美化工具-SQL Pretty Printer](tools/SQL_Pretty_Printer.md)
     * 知识收藏
         * [经典词句](knowledge/110_经典词句.md)
         * [励志思想](knowledge/120_励志思想.md)
