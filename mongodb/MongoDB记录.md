@@ -73,6 +73,20 @@ dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库
 root：只在admin数据库中可用。超级账号，超级权限。
 ```
 
+## 数据导入导出
+
+[MongoDB 备份(mongodump)与恢复(mongorestore)](http://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html)
+
+[Mongodb命令行导入导出数据](https://blog.csdn.net/cupid_1314/article/details/79153480)
+
+```sh
+# 导出数据
+mongodump -h 127.0.0.1 -p 27017 -d belledoc -o /data/db/backup
+
+# 导入数据
+mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u root -p=mongoDev123 --authenticationDatabase admin
+```
+
 ## 可视化工具
 
 [adminMongo](https://github.com/mrvautin/adminMongo)
