@@ -73,6 +73,8 @@ dbAdminAnyDatabase：只在admin数据库中可用，赋予用户所有数据库
 root：只在admin数据库中可用。超级账号，超级权限。
 ```
 
+[关于MongoDB的URL连接时用户名或密码中出现特殊字符问题](https://blog.csdn.net/u013732444/article/details/78229177)
+
 ## 数据导入导出
 
 [MongoDB 备份(mongodump)与恢复(mongorestore)](http://www.runoob.com/mongodb/mongodb-mongodump-mongorestore.html)
