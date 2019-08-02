@@ -23,6 +23,8 @@
             * [千万级大表分区表转化](mysql/MySQL运维记录/850_千万级大表转化为按月分区表.md)
         * [MySQL问题记录](mysql/980_MySQL问题记录.md)
     * Oracle
+        * 实用技巧
+            * [更新 blob 字段](oracle/实用技巧/blob_update.md)
     * DB2
     * Redis
         * [Redis简介](redis/110_Redis简介.md)
