@@ -25,6 +25,7 @@
     * Oracle
         * 实用技巧
             * [更新 blob 字段](oracle/实用技巧/blob_update.md)
+        * [日常维护](oracle/日常维护.md)
     * DB2
     * Redis
         * [Redis简介](redis/110_Redis简介.md)
