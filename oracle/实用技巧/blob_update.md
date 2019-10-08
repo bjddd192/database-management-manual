@@ -103,4 +103,19 @@ SELECT SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP,utl_raw.cast_to_raw(JOB_DATA2) JO
 ) B
 ON (A.SCHED_NAME = B.SCHED_NAME AND A.TRIGGER_NAME = B.TRIGGER_NAME AND A.TRIGGER_GROUP = B.TRIGGER_GROUP)
 WHEN MATCHED THEN UPDATE SET A.JOB_DATA = B.JOB_DATA;
+
+
+-- 一把刷新脚本(给 DBA 处理，刷之前备份数据)
+update SCHEDULER_TRIGGERS
+set
+  job_data=utl_raw.cast_to_raw(REPLACE(utl_raw.cast_to_varchar2(dbms_lob.substr(job_data)),'scm-wms-city-web.01.prd.bjds.belle.lan','scm-wms-city-hd.01.prd.bjds.belle.lan'))
+FROM  
+where utl_raw.cast_to_varchar2(dbms_lob.substr(job_data)) 
+  like '%scm-wms-city-web.01.prd.bjds.belle.lan%3092%' and utl_raw.cast_to_varchar2(dbms_lob.substr(job_data)) not like '%3292%';
+  
+-- 数据校验
+SELECT *
+FROM SCHEDULER_TRIGGERS 
+where utl_raw.cast_to_varchar2(dbms_lob.substr(job_data)) 
+  like '%scm-wms-city-hd.01.prd.bjds.belle.lan%'; 
 ```

@@ -89,6 +89,14 @@ mongodump -h 127.0.0.1 -p 27017 -d belledoc -o /data/db/backup
 mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u root -p=mongoDev123 --authenticationDatabase admin
 ```
 
+## 数据安全
+
+[Mongodb 误删除 使用Oplog数据恢复](https://www.jianshu.com/p/4c1a8175732e)
+
+[MongoDB Oplog 详解](https://www.cnblogs.com/operationhome/p/10688798.html)
+
+[单台MongoDB实例开启Oplog](https://www.cnblogs.com/xuliuzai/p/9643128.html)
+
 ## 可视化工具
 
 [adminMongo](https://github.com/mrvautin/adminMongo)
