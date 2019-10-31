@@ -1,6 +1,6 @@
 # Redis单机部署
 
-以下为本人在 Centos7.5 下的安装 redis-4.0.11 过程，实验机器 IP 为 172.20.32.125。
+以下为本人在 Centos7.5 下的安装 redis-4.0.14 过程，实验机器 IP 为 172.20.32.125。
 
 ## 官方安装步骤
 
@@ -13,17 +13,17 @@
 
 $ cd /tmp/
 # 下载 Redis
-$ wget http://download.redis.io/releases/redis-4.0.11.tar.gz
+$ wget http://download.redis.io/releases/redis-4.0.14.tar.gz
 # 解包
-$ tar zxvf redis-4.0.11.tar.gz 
-$ cd /tmp/redis-4.0.11
+$ tar zxvf redis-4.0.14.tar.gz 
+$ cd /tmp/redis-4.0.14
 # 编译 Redis
-$ make
+$ make PREFIX=/usr/local install
 # 运行 Redis
-$ /tmp/redis-4.0.11/src/redis-server
+$ /tmp/redis-4.0.14/src/redis-server
 
 # 使用客户端验证
-$ /tmp/redis-4.0.11/src/redis-cli 
+$ /tmp/redis-4.0.14/src/redis-cli 
 127.0.0.1:6379> set foo bar
 OK
 127.0.0.1:6379> get foo
@@ -39,7 +39,7 @@ OK
 
 ```sh
 # 配置 Redis 并设置开机启动
-$ sh /tmp/redis-4.0.11/utils/install_server.sh
+$ sh /tmp/redis-4.0.14/utils/install_server.sh
 ```
 
 一路回车，默认配置结果如下：
