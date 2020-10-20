@@ -105,3 +105,8 @@ mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u r
 
 [MongoVUE](http://mongodb-tools.com/tool/mongovue/)
 
+### 参考资料
+
+[记一次 MongoDB 占用 CPU 过高问题的排查](https://cloud.tencent.com/developer/article/1495820)
+
+[排查MongoDB CPU使用率高的问题](https://help.aliyun.com/document_detail/62224.html)
