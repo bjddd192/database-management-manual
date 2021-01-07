@@ -81,6 +81,10 @@ root：只在admin数据库中可用。超级账号，超级权限。
 
 [Mongodb命令行导入导出数据](https://blog.csdn.net/cupid_1314/article/details/79153480)
 
+[MongoDB 数据集合导出与导入](https://blog.csdn.net/wangmx1993328/article/details/82663617)
+
+[使用MongoDB导入和导出Json文档](https://www.pianshen.com/article/9726287590/)
+
 ```sh
 # 导出数据
 mongodump -h 127.0.0.1 -p 27017 -d belledoc -o /data/db/backup
