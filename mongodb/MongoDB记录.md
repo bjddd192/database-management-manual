@@ -30,6 +30,10 @@ MongoDB 3.2 版本以后默认的开启的是wiredTiger存储引擎，之前用�
 
 ### 二进制安装部署
 
+```sh
+
+```
+
 [搭建高可用mongodb集群](http://www.lanceyan.com/tech/mongodb)
 
 [mongodb 3.4 集群搭建：分片+副本集](http://www.ityouknow.com/mongodb/2017/08/05/mongodb-cluster-setup.html)
@@ -57,6 +61,71 @@ MongoDB 3.2 版本以后默认的开启的是wiredTiger存储引擎，之前用�
 [frontalnh/mongodb-replica-set](https://github.com/frontalnh/mongodb-replica-set)
 
 [How to deploy a MongoDB Replica Set using Docker](https://towardsdatascience.com/how-to-deploy-a-mongodb-replica-set-using-docker-6d0b9ac00e49)
+
+### 常用操作
+
+```sql
+-- 插入单条数据
+db.fruit.insertOne({name: "apple"})
+
+-- 插入多条数据
+db.fruit.insertMany([{name: "apple"}, {name: "pear"}, {name: "orange"}])
+
+-- 查询所有数据
+db.fruit.find()
+
+-- 按条件查询数据
+db.fruit.find({name: "apple"})
+db.fruit.find({$or: [{name: "apple"}, {name: "orange"}]})
+-- 投影查询
+db.fruit.find({name: "pear"},{"_id": 0, name: 1})
+
+-- 查找子文档
+db.fruit.insertOne({name: "apple", from: {country: "China", province: "Shenzhen"}})
+db.fruit.find({"from.country": "China"})
+db.fruit.insertOne({name: "apple", from: [{country: "China", province: "Shenzhen"}, {country: "China", province: "Guangzhou"}]})
+db.fruit.find({"from": {$elemMatch: {country: "China", province: "Shenzhen"}}})
+db.fruit.find({},{"_id": 0, name: 1})
+
+-- 更新文档
+db.fruit.updateOne({name: "orange"}, {"$set": {from: "English"}})
+db.fruit.updateMany({name: "orange"}, {"$set": {from: "English"}})
+db.fruit.find({name: "orange"})
+
+-- 删除文档
+db.testdel.insertMany([{name: "apple"}, {name: "pear"}, {name: "orange"}])
+-- 按条件删除一个
+db.testdel.deleteOne({name: "orange"})
+-- 删除所有
+db.testdel.deleteMany({})
+
+-- 删除集合
+db.testdel.drop()
+```
+
+### python 验证
+
+```python
+docker run -it --rm -e COLUMNS=200 -e LINES=200 hub.wonhigh.cn/library/python:3.7.4-alpine3.10 sh
+pip install pymongo
+python
+Python 3.7.4 (default, Aug 21 2019, 00:19:59) 
+[GCC 8.3.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import pymongo
+>>> pymongo.version
+>>> from pymongo import MongoClient
+>>> uri = "mongodb://root:mongoDev123@172.17.209.202:27017/admin"    
+>>> client = MongoClient(uri)
+>>> print(client)
+>>> db = client["eshop"]
+>>> user_coll = db["users"]
+>>> new_user = {"username": "leo", "password": "xxxx"}
+>>> result = user_coll.insert_one(new_user)
+>>> print(result)
+>>> result = user_coll.update_one({"username": "leo"}, {"$set": {"phone": "123456789"}})  
+>>> print(result)
+```
 
 ## 权限管理
 
@@ -109,8 +178,23 @@ mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u r
 
 [MongoVUE](http://mongodb-tools.com/tool/mongovue/)
 
+### 性能优化
+
+[MongoDB实战性能优化](https://www.cnblogs.com/swordfall/p/10427150.html)
+
 ### 参考资料
 
 [记一次 MongoDB 占用 CPU 过高问题的排查](https://cloud.tencent.com/developer/article/1495820)
 
 [排查MongoDB CPU使用率高的问题](https://help.aliyun.com/document_detail/62224.html)
+
+[性能提升数十倍！百万级高并发MongoDB集群优化实践](https://dbaplus.cn/news-162-2986-1.html)
+
+[MongoDB服务器相关选型和基础优化参考](https://blog.51cto.com/smileyouth/1653790)
+
+[mongodb分片模式分片键的选择](https://cloud.tencent.com/developer/article/1451897)
+
+[Mongodb Sharding架构如何选择分片片键](http://blog.chinaunix.net/uid-15795819-id-3521990.html)
+
+[快速了解MongoDB](https://my.oschina.net/u/4374969/blog/4065569)
+
