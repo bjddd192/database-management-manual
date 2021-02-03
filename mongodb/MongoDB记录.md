@@ -178,6 +178,12 @@ mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u r
 
 [MongoVUE](http://mongodb-tools.com/tool/mongovue/)
 
+### 版本升级
+
+[mongodb 3.2数据利用mongodump导出后导入3.6版本](https://www.jianshu.com/p/b385e02ff75c)
+
+[mongodb升级详细教程 - 3.2~4.4](https://blog.csdn.net/xgw1010/article/details/109119242)
+
 ### 性能优化
 
 [MongoDB实战性能优化](https://www.cnblogs.com/swordfall/p/10427150.html)
