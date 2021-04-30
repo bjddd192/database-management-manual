@@ -101,6 +101,18 @@ db.testdel.deleteMany({})
 
 -- 删除集合
 db.testdel.drop()
+
+-- 查看oplog的状态、大小、存储的时间范围。
+db.getReplicationInfo()
+
+-- 查看 oplog 的状态，输出信息包括 oplog 日志大小，操作日志记录的起始时间。
+rs.printReplicationInfo()
+
+-- 查看集群状态
+rs.status();
+
+-- 查看从库同步状态
+db.printSlaveReplicationInfo()
 ```
 
 ### python 验证
@@ -160,6 +172,12 @@ mongodump -h 127.0.0.1 -p 27017 -d belledoc -o /data/db/backup
 
 # 导入数据
 mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u root -p=mongoDev123 --authenticationDatabase admin
+
+
+# 实操
+/mongodb/mongodb-linux-x86_64-3.2.8/bin/mongodump -h 172.17.209.53 --port 27077 --username user_ept --password user_ept -d db_ept -o /mongodb/backup
+
+/mongodb/mongodb-linux-x86_64-3.2.8/bin/mongorestore -h 10.234.6.87:27017 --username user_ept --password user_ept -d db_ept_dev --drop --batchSize=1 /mongodb/backup/db_ept
 ```
 
 ## 数据安全
@@ -204,3 +222,6 @@ mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u r
 
 [快速了解MongoDB](https://my.oschina.net/u/4374969/blog/4065569)
 
+[mongodb 3.2存储目录结构说明](https://blog.csdn.net/weixin_30897079/article/details/95329767?utm_medium=distribute.wap_relevant.none-task-blog-baidujs_baidulandingword-3)
+
+[mongodb丢失数据的原因剖析](https://blog.csdn.net/yibing548/article/details/50844310)
