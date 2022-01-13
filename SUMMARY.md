@@ -21,6 +21,7 @@
         * 日常管理
             * [权限分配](mysql/MySQL日常管理/810_权限分配.md)
             * [创建event](mysql/MySQL日常管理/820_创建event.md)
+            * [迁移用户及权限](mysql/MySQL日常管理/830_迁移用户及权限.md)
         * MySQL运维记录
             * [千万级大表分区表转化](mysql/MySQL运维记录/850_千万级大表转化为按月分区表.md)
         * [MySQL问题记录](mysql/980_MySQL问题记录.md)
