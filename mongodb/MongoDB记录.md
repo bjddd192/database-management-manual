@@ -225,3 +225,5 @@ mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u r
 [mongodb 3.2存储目录结构说明](https://blog.csdn.net/weixin_30897079/article/details/95329767?utm_medium=distribute.wap_relevant.none-task-blog-baidujs_baidulandingword-3)
 
 [mongodb丢失数据的原因剖析](https://blog.csdn.net/yibing548/article/details/50844310)
+
+[修改mongodb集群IP](https://blog.csdn.net/h_haow/article/details/87478081)
