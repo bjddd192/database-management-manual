@@ -3,6 +3,10 @@
 [severalnines/sysbench](https://hub.docker.com/r/severalnines/sysbench)
 
 ```sh
+CREATE SCHEMA sbtest;
+CREATE USER sbtest@'%' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON sbtest.* to sbtest@'%';
+
 docker run \
 --rm=true \
 --name=sb-prepare \

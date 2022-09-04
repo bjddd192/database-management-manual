@@ -113,6 +113,25 @@ rs.status();
 
 -- 查看从库同步状态
 db.printSlaveReplicationInfo()
+
+-- 查看当前的操作
+db.currentOP()
+-- 杀掉慢操作
+db.killOp(<opid of the query to kill>)
+
+-- 查看配置文件
+db.getProfilingStatus()
+db.getProfilingLevel()
+
+-- 开启慢查询
+use db_dop
+db.setProfilingLevel(2,500) 
+
+-- 获取超过0.5秒的慢查询：
+db.system.profile.find({millis:{$gt:500}})
+
+-- 获取最新的慢查询：
+db.system.profile.find().sort({$natural:-1})
 ```
 
 ### python 验证
@@ -227,3 +246,11 @@ mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u r
 [mongodb丢失数据的原因剖析](https://blog.csdn.net/yibing548/article/details/50844310)
 
 [修改mongodb集群IP](https://blog.csdn.net/h_haow/article/details/87478081)
+
+[mongodb的慢查询](https://blog.51cto.com/u_13912516/5538720)
+
+[记一次MongoDB高负载的性能优化](https://www.ucloud.cn/yun/31697.html)
+
+[MongoDB中优雅删除大量数据的三种方式](https://www.jb51.net/article/226310.htm)
+
+[MongoDB 4.4 compact 压缩 说明](https://www.cndba.cn/cndba/dave/article/107985)
