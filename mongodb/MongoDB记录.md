@@ -132,6 +132,15 @@ db.system.profile.find({millis:{$gt:500}})
 
 -- 获取最新的慢查询：
 db.system.profile.find().sort({$natural:-1})
+
+-- 查看服务器连接数
+db.serverStatus().connections;
+db.currentOp(true).inprog;
+db.currentOp(true).inprog.forEach(
+ function(opDoc){//opDoc其实是返回的每个op操作对象
+			printjson(opDoc)//打印信息
+	 }
+)
 ```
 
 ### python 验证
