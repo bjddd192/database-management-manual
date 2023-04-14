@@ -141,6 +141,9 @@ db.currentOp(true).inprog.forEach(
 			printjson(opDoc)//打印信息
 	 }
 )
+
+-- 查看复制信息，可以查看oplog空间大小
+db.printReplicationInfo()
 ```
 
 ### python 验证
@@ -282,3 +285,5 @@ mongorestore -h 127.0.0.1:27017 -d belledoc --drop /data/db/backup/belledoc -u r
 [MongoDB中优雅删除大量数据的三种方式](https://www.jb51.net/article/226310.htm)
 
 [MongoDB 4.4 compact 压缩 说明](https://www.cndba.cn/cndba/dave/article/107985)
+
+[修改MongoDB oplog空间大小](https://blog.csdn.net/Sky_moto/article/details/128703475)
