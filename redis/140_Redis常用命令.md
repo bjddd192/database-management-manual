@@ -220,9 +220,10 @@ OK
 # 按前缀批量删除key
 redis-cli -h 172.17.209.202 -a "密码" KEYS "petrel*" | xargs redis-cli -h 172.17.209.202 -a "密码" del
 redis-cli -h 10.250.16.88 -p 6380 -a "密码" KEYS "petrel:oms-e-api:TempPowerUnitNo*" | xargs redis-cli -h 10.250.16.88 -p 6380 -a "密码" del
+
+# 按前缀批量设置key过期时间
+redis-cli -h 10.246.2.15 -p 6379 -a "xxx" KEYS "EXPRESSNO_PRINT_NUM*" | xargs -i redis-cli -h 10.246.2.15 -p 6379 -a "xxx" expire {} 259200
+
 # 清空所有库的键值对，慎用！！！
 # 127.0.0.1:6379> flushall
 ```
- 
-
-
