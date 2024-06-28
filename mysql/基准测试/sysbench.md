@@ -41,4 +41,22 @@ sysbench \
 --mysql-password=password \
 /usr/share/sysbench/tests/include/oltp_legacy/oltp.lua \
 run
+
+
+docker run --rm \
+-v /root/sysbench_json_test.lua:/usr/share/sysbench/tests/include/oltp_legacy/sysbench_json_test.lua \
+severalnines/sysbench \
+sysbench \
+--db-driver=mysql \
+--report-interval=2 \
+--threads=32 \
+--time=300 \
+--mysql-host=polardb-test.lesoon.lan \
+--mysql-port=3306 \
+--mysql-user=sbtest \
+--mysql-password=password \
+--mysql-db=sbtest \
+--test=/usr/share/sysbench/tests/include/oltp_legacy/sysbench_json_test.lua \
+run
+
 ```
